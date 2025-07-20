@@ -1,11 +1,11 @@
 import React from "react";
 import "./SwipeButtons.css";
-import ReplyIcon from "@material-ui/icons/Reply";
-import CloseIcon from "@material-ui/icons/Close";
-import StarIcon from "@material-ui/icons/Star";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import FlashOnIcon from "@material-ui/icons/FlashOn";
-import IconButton from "@material-ui/core/IconButton";
+import ReplyIcon from "@mui/icons-material/Reply";
+import CloseIcon from "@mui/icons-material/Close";
+import StarIcon from "@mui/icons-material/Star";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FlashOnIcon from "@mui/icons-material/FlashOn";
+import IconButton from "@mui/material/IconButton";
 
 function SwipeButtons() {
   return (
