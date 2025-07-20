@@ -1,52 +1,58 @@
-import React, { useEffect, useState } from 'react'
-import TinderCard from 'react-tinder-card';
-import "./TinderCards.css";
-import axios from './axios'
+import React, { useEffect, useState } from 'react';
+import { CardSwiper } from 'react-card-swiper';
+import './TinderCards.css';
+import axios from './axios';
 
 function TinderCards() {
+  const [people, setPeople] = useState([]);
 
-    const [ people, setPeople ] = useState([]);
-
-    useEffect(() => {
-        async function fetchData() {
-            const req = await axios.get('/tinder/Cards');
-            setPeople(req.data);
-        }
-        fetchData();
-    }, [])
-
-    const swiped = (direction, nameToDelete) => {
-        console.log("removing: " + nameToDelete);
-        //setLastDirection(direction);
+  useEffect(() => {
+    async function fetchData() {
+      const req = await axios.get('/tinder/Cards');
+      setPeople(req.data);
     }
+    fetchData();
+  }, []);
 
-    const outOfFrame = (name) => {
-        console.log(name + " left the screen!");
-    }
+  const handleDismiss = (el, meta, id, action, operation) => {
+    console.log('removing:', id, action, operation);
+  };
 
-    return (
-        <div className="tinderCards">
-            <div className="tinderCards__cardContainer">
-                {people.map((person) => (
-                    <TinderCard 
-                        className="swipe" 
-                        key={person.name}
-                        preventSwipe={["up", "down"]}
-                        onSwipe={(dir) => swiped(dir, person.name)}
-                        onCardLeftScreen={() => outOfFrame(person.name)}
-                    >
-                        <div style={{ backgroundImage: `url(${person.imgUrl})` }}
-                            className="card"
-                        >
-                            <h3>{person.name}</h3>
-                        </div>
+  const handleEnter = (el, meta, id) => {
+    console.log('entered:', id);
+  };
 
-                    </TinderCard>
-                ))}
+  const handleFinish = (status) => {
+    console.log('All cards finished:', status);
+  };
+
+  // Prepare data for CardSwiper
+  const cardData = people.map((person) => ({
+    id: person.name,
+    imgUrl: person.imgUrl,
+    name: person.name,
+  }));
+
+  return (
+    <div className="tinderCards">
+      <div className="tinderCards__cardContainer">
+        <CardSwiper
+          data={cardData}
+          onDismiss={handleDismiss}
+          onEnter={handleEnter}
+          onFinish={handleFinish}
+          renderCard={(card) => (
+            <div
+              style={{ backgroundImage: `url(${card.imgUrl})` }}
+              className="card"
+            >
+              <h3>{card.name}</h3>
             </div>
-            
-        </div>
-    )
+          )}
+        />
+      </div>
+    </div>
+  );
 }
 
-export default TinderCards
+export default TinderCards;
