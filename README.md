@@ -30,7 +30,7 @@ Make sure MongoDB is running locally (default: `mongodb://localhost:27017/myFirs
 
 ### 3. Add test cards (optional)
 ```bash
-node addTestCards.js
+node server/addTestCards.js
 ```
 
 ### 4. Start the app (dev mode)
@@ -57,14 +57,27 @@ npm start
 
 ## Project Structure
 ```
-/               # Project root
-  /src/         # React frontend source
-  /public/      # Static assets
-  server.js     # Express backend
-  dbCards.js    # Mongoose model
-  addTestCards.js # Script to seed DB
-  package.json  # Unified dependencies/scripts
+/                  # Project root
+  /client/         # React frontend
+    /public/       # React public assets
+    /src/          # React source code
+      components/  # React components
+      styles/      # CSS files
+      utils/       # Utility JS (e.g., axios.js)
+      index.js
+      index.css
+      ...
+  /server/         # Express backend
+    models/        # Mongoose models
+    addTestCards.js# Script to seed DB
+    server.js      # Express server
+  package.json     # Unified dependencies/scripts
+  ...
 ```
+
+## Notes
+- All import paths have been updated to reflect the new structure. If you add new files, follow the same organization.
+- To seed the database, run `node server/addTestCards.js` from the project root.
 
 ## License
 MIT
