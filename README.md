@@ -1,83 +1,171 @@
 # Tinder Clone (MERN Stack)
 
-A full-stack Tinder-like swipe app built with MongoDB, Express, React, and Node.js.
+A full-stack Tinder-like dating application built with MongoDB, Express, React, and Node.js.
 
 ## Features
+- User authentication and registration
+- Profile creation and management
 - Swipeable card interface (like Tinder)
-- React frontend (Create React App)
-- Express + Node.js backend
-- MongoDB for card storage
-- REST API for card data
-- GitHub Actions CI/CD: auto-deploys frontend to GitHub Pages on every push to `main`
+- Real-time chat functionality
+- Matching algorithm
+- Image upload with Cloudinary
+- Responsive design with styled-components
+- Real-time notifications with Socket.io
 
-## Live Demo
-[https://heyaniket.github.io/tinder-clone/](https://heyaniket.github.io/tinder-clone/)
-
-## Getting Started (Local Development)
-
-### Prerequisites
-- Node.js (v18+ recommended)
-- npm
-- MongoDB (local or Atlas)
-
-### 1. Install dependencies
-```bash
-npm install
-```
-
-### 2. Start MongoDB
-Make sure MongoDB is running locally (default: `mongodb://localhost:27017/myFirstDatabase`).
-
-### 3. Add test cards (optional)
-```bash
-node server/addTestCards.js
-```
-
-### 4. Start the app (dev mode)
-```bash
-npm run dev
-```
-- React frontend: [http://localhost:3000](http://localhost:3000)
-- Express backend: [http://localhost:8001](http://localhost:8001)
-
-## Production Build & Server
-```bash
-npm run build
-npm start
-```
-- Serves the React build from Express on port 8001
-
-## API Endpoints
-- `GET /tinder/cards` — Get all cards
-- `POST /tinder/cards` — Add a new card
-
-## Deployment
-- Frontend is auto-deployed to GitHub Pages via GitHub Actions on every push/merge to `main`.
-- See `.github/workflows/deploy.yml` for details.
+## Tech Stack
+- **Frontend**: React, React Router, Styled Components, Framer Motion, Socket.io Client
+- **Backend**: Node.js, Express, MongoDB, Mongoose
+- **Authentication**: JWT, bcryptjs
+- **Real-time**: Socket.io
+- **File Upload**: Multer, Cloudinary
+- **Styling**: Styled Components, CSS3
 
 ## Project Structure
 ```
-/                  # Project root
-  /client/         # React frontend
-    /public/       # React public assets
-    /src/          # React source code
-      components/  # React components
-      styles/      # CSS files
-      utils/       # Utility JS (e.g., axios.js)
-      index.js
-      index.css
-      ...
-  /server/         # Express backend
-    models/        # Mongoose models
-    addTestCards.js# Script to seed DB
-    server.js      # Express server
-  package.json     # Unified dependencies/scripts
-  ...
+tinder-clone/
+├── client/                     # React frontend
+│   ├── public/
+│   │   ├── index.html
+│   │   └── favicon.ico
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Auth/           # Authentication components
+│   │   │   ├── Profile/        # Profile management
+│   │   │   ├── Cards/          # Swipe card interface
+│   │   │   ├── Chat/           # Chat functionality
+│   │   │   ├── Header/         # Navigation header
+│   │   │   └── Common/         # Shared components
+│   │   ├── pages/              # Page components
+│   │   ├── services/           # API and socket services
+│   │   ├── context/            # React context providers
+│   │   ├── hooks/              # Custom React hooks
+│   │   └── utils/              # Utility functions
+│   └── package.json
+├── server/                     # Node.js backend
+│   ├── controllers/            # Route controllers
+│   ├── models/                 # Mongoose models
+│   ├── routes/                 # API routes
+│   ├── middleware/             # Custom middleware
+│   ├── config/                 # Configuration files
+│   ├── utils/                  # Utility functions
+│   ├── socket/                 # Socket.io handlers
+│   └── package.json
+└── README.md
 ```
 
-## Notes
-- All import paths have been updated to reflect the new structure. If you add new files, follow the same organization.
-- To seed the database, run `node server/addTestCards.js` from the project root.
+## Getting Started
+
+### Prerequisites
+- Node.js (v18+ recommended)
+- npm or yarn
+- MongoDB (local or MongoDB Atlas)
+- Cloudinary account (for image uploads)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/tinder-clone.git
+   cd tinder-clone
+   ```
+
+2. **Install Backend Dependencies**
+   ```bash
+   cd server
+   npm install
+   ```
+
+3. **Install Frontend Dependencies**
+   ```bash
+   cd ../client
+   npm install
+   ```
+
+4. **Environment Setup**
+
+   Create `.env` files in both `server/` and `client/` directories:
+
+   **Server (.env)**
+   ```env
+   PORT=5000
+   MONGODB_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret
+   CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+   CLOUDINARY_API_KEY=your_cloudinary_api_key
+   CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+   ```
+
+   **Client (.env)**
+   ```env
+   REACT_APP_API_URL=http://localhost:5000/api
+   REACT_APP_SOCKET_URL=http://localhost:5000
+   ```
+
+5. **Start Development Servers**
+
+   **Backend (Terminal 1)**
+   ```bash
+   cd server
+   npm run dev
+   ```
+
+   **Frontend (Terminal 2)**
+   ```bash
+   cd client
+   npm start
+   ```
+
+   - Backend: http://localhost:5000
+   - Frontend: http://localhost:3000
+
+## API Endpoints
+
+### Authentication
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `GET /api/auth/me` - Get current user
+
+### Users
+- `GET /api/users` - Get all users
+- `GET /api/users/:id` - Get user by ID
+- `PUT /api/users/:id` - Update user profile
+- `DELETE /api/users/:id` - Delete user
+
+### Matches
+- `GET /api/matches` - Get user matches
+- `POST /api/matches` - Create new match
+- `DELETE /api/matches/:id` - Remove match
+
+### Messages
+- `GET /api/messages/:matchId` - Get messages for a match
+- `POST /api/messages` - Send a message
+
+## Features to Implement
+
+- [ ] User authentication and registration
+- [ ] Profile creation and editing
+- [ ] Swipe card interface
+- [ ] Matching algorithm
+- [ ] Real-time chat
+- [ ] Image upload functionality
+- [ ] Push notifications
+- [ ] User preferences and filters
+- [ ] Location-based matching
+- [ ] Premium features
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
-MIT
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+- Inspired by Tinder's user interface and functionality
+- Built with modern web technologies for optimal performance and user experience
