@@ -9,7 +9,8 @@
     "test": "echo \"No tests specified yet\" && exit 0",
     "lint": "echo \"No linting configured yet\" && exit 0",
     "seed": "node utils/seedData.js",
-    "test-data": "node utils/testData.js"
+    "test-data": "node utils/testData.js",
+    "test-auth": "node utils/testAuth.js"
   },
   "keywords": ["nodejs", "express", "mongodb", "tinder-clone"],
   "author": "",
