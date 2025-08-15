@@ -50,6 +50,8 @@ tinder-clone/
 │   ├── utils/                  # Utility functions
 │   ├── socket/                 # Socket.io handlers
 │   └── package.json
+├── scripts/                    # Repository management scripts
+├── .github/                    # GitHub Actions workflows
 └── README.md
 ```
 
@@ -139,6 +141,46 @@ tinder-clone/
 ### Messages
 - `GET /api/messages/:matchId` - Get messages for a match
 - `POST /api/messages` - Send a message
+
+## Repository Management
+
+### Branch Protection
+
+This repository includes automated branch protection for the master branch to ensure code quality and prevent accidental changes.
+
+**Features:**
+- ✅ Require pull request reviews before merging
+- ✅ Prevent force pushes to master
+- ✅ Require linear history
+- ✅ Automatic branch cleanup after PR merge
+
+**Setup:**
+```bash
+# Using the automated script (requires GitHub CLI)
+./scripts/setup-branch-protection.sh
+
+# Or manually via GitHub UI
+# Go to Settings > Branches > Add rule for master
+```
+
+### Automatic Branch Cleanup
+
+Feature branches are automatically deleted after pull requests are merged via GitHub Actions.
+
+**Workflow:** `.github/workflows/cleanup-branches.yml`
+- Triggers on PR merge
+- Safely deletes feature branches
+- Preserves main/master branches
+
+### Development Workflow
+
+1. Create feature branch: `git checkout -b feature/YourFeature`
+2. Make changes and commit
+3. Push branch: `git push origin feature/YourFeature`
+4. Create pull request
+5. Get review and approval
+6. Merge pull request
+7. Branch automatically deleted ✅
 
 ## Features to Implement
 

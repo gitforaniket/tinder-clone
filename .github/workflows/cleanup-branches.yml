@@ -1,0 +1,26 @@
+name: Cleanup Merged Branches
+
+on:
+  pull_request:
+    types: [closed]
+
+jobs:
+  cleanup-branches:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Delete merged branch
+        run: |
+          # Only delete feature branches, not main/master
+          if [[ "${{ github.event.pull_request.head.ref }}" != "main" && "${{ github.event.pull_request.head.ref }}" != "master" ]]; then
+            echo "Deleting merged branch: ${{ github.event.pull_request.head.ref }}"
+            git push origin --delete "${{ github.event.pull_request.head.ref }}"
+          else
+            echo "Skipping deletion of main/master branch"
+          fi 
