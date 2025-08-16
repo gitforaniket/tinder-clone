@@ -5,6 +5,7 @@ require('dotenv').config();
 
 // Import routes
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/users');
 
 // Import middleware
 const { rateLimit } = require('./middleware/auth');
@@ -21,6 +22,7 @@ app.use(rateLimit(100, 15 * 60 * 1000)); // 100 requests per 15 minutes
 
 // Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -40,7 +42,14 @@ app.get('/', (req, res) => {
     version: '1.0.0',
     endpoints: {
       auth: '/api/auth',
+      users: '/api/users',
       health: '/api/health'
+    },
+    features: {
+      authentication: 'JWT + Bcrypt',
+      userManagement: 'CRUD operations',
+      photoUpload: 'Cloudinary integration',
+      fileUpload: 'Multer middleware'
     }
   });
 });
@@ -78,6 +87,7 @@ const startServer = async () => {
       console.log(`📱 Environment: ${process.env.NODE_ENV || 'development'}`);
       console.log(`🔗 Health check: http://localhost:${PORT}/api/health`);
       console.log(`🔐 Auth endpoints: http://localhost:${PORT}/api/auth`);
+      console.log(`👤 User endpoints: http://localhost:${PORT}/api/users`);
     });
 
   } catch (error) {
